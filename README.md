@@ -67,8 +67,8 @@ function login (fields) {
 }
 ```
 
-`connection.init` ends with an empty `Promise.resolve` if login is successfull
-according to its basic validation method.
+`connection.init` ends by resolving a promise with `$` cheerio response body as
+argument if login is successfull according to its basic validation method.
 The default one is to check if `statusCode` of the `POST` is `200`.
 If it is not the case, a `new Error('LOGIN_FAILED')` is thrown.
 
@@ -93,6 +93,17 @@ function validateLogin (statusCode, $, json) {
 function login (fields) {
   // ...
   return connection.init(baseUrl, page, '#formSignon', population, validateLogin)
+}
+```
+
+The following promise can now rely on `$` to perform further actions.
+
+```js
+function start (fields) {
+  return login(fields)
+  .then($ => {
+    // Parse the body using $ to perform further actions
+  })
 }
 ```
 

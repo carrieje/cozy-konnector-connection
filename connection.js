@@ -19,14 +19,18 @@ module.exports.init = function (baseUrl, page, formSelector, population, validat
     for (let name in population) {
       inputs[name] = population[name]
     }
-    return post(`${baseUrl}/${action}`, inputs)
+
+    var body, statusCode
+    return post(`${baseUrl}/${action}`, inputs, (e, r, b) => {
+      [statusCode, body] = [r.statusCode, b]
+    }).then(() => { return Promise.resolve([statusCode, body]) })
   })
-  .then(response => {
-    const $ = cheerio.load(response.body)
-    if (!validate(response.statusCode, $, response.body)) {
+  .then(([statusCode, body]) => {
+    const $ = cheerio.load(body)
+    if (!validate(statusCode, $, body)) {
       throw new Error(errors.LOGIN_FAILED)
     } else {
-      return Promise.resolve()
+      return Promise.resolve($)
     }
   })
 }
@@ -41,7 +45,7 @@ function formContent ($, formSelector) {
   return [action, inputs]
 }
 
-function post (uri, inputs) {
+function post (uri, inputs, callback) {
   return rq({
     uri: uri,
     resolveWithFullResponse: true,
@@ -49,5 +53,5 @@ function post (uri, inputs) {
     form: {
       ...inputs
     }
-  })
+  }, callback)
 }
