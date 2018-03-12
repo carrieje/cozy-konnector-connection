@@ -113,6 +113,10 @@ function start (fields) {
 }
 ```
 
+As a seventh argument, `connection` allows you to pass an `opts` object to its
+`requestFactory`. If the page you are browsing uses `latin1` encoding, simply
+add `{ encoding: 'latin1' }` to the `init` function.
+
 Requirements
 ------------
 
