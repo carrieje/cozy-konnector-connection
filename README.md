@@ -46,8 +46,8 @@ To identify the form, you must give a third argument to `init`: `formSelector`.
 This argument is processed by `cheerio` so it must respect its syntax.
 
 The form will be submit (`POST`) to its `action` parameter.
-For now `connection` assumes this parameter is always relative, and concatenates
-it to `baseUrl` with a `/` to constitute the final url.
+For now, `connection` assumes this parameter is always relative, and
+concatenates it to `baseUrl` with a `/` to constitute the final url.
 
 The fourth argument allows you to populate the form before sending it.
 It consists of a JS object, mapping name of inputs to its populated value.
@@ -67,24 +67,30 @@ function login (fields) {
 }
 ```
 
-`connection.init` ends by resolving a promise with `$` cheerio response body as
-argument if login is successfull according to its basic validation method.
+`connection.init` ends by resolving a promise with the response body as
+argument, if login is successfull according to its basic validation method.
 The default one is to check if `statusCode` of the `POST` is `200`.
 If it is not the case, a `new Error('LOGIN_FAILED')` is thrown.
 
-You can customize this validation method by giving a last argument to `init`.
-This must be a function with 3 arguments : `statusCode`, `$` and `json`.
-You can use all of three arguments to determine whether login is successfull or
-not. Note that `json` is the raw body of the response. Ignore this argument if
-the response is not a json payload, parse it before using it otherwise.
-If you have to crawl through a webpage for spotting errors, use `$` which is
-just a `cheerio` object of the response body.
+Custom processing
+-----------------
 
+`connection` allows some customizations.
+
+As a fifth argument to `init`, you can customize the validation function.
+This must be a function with 2 arguments : `statusCode`, `body`.
+You can use both arguments to determine whether login is successfull or not.
 This function is a predicate for the success of the login process. It must
 return a boolean.
 
+As a sixth argument to `init`, you can define a strategy to parse the `body`.
+This `body` would be parsed when passed to the validation function, and when
+resolving the last promise.
+You have three options for this : `'raw'`, `'json'`, `'cheerio'`. `'raw'` is the
+default strategy.
+
 ```js
-function validateLogin (statusCode, $, json) {
+function validateLogin (statusCode, $) {
   console.log(statusCode)
   // always throw a LOGIN_FAILED
   return false
@@ -92,7 +98,7 @@ function validateLogin (statusCode, $, json) {
 
 function login (fields) {
   // ...
-  return connection.init(baseUrl, page, '#formSignon', population, validateLogin)
+  return connection.init(baseUrl, page, '#formSignon', population, validateLogin, 'cheerio')
 }
 ```
 
@@ -111,7 +117,7 @@ Requirements
 ------------
 
 This module needs no more than your Cozy Konnector to work.
-For instance, it depends on `cozy-konnector-libs`.
+It depends on `cozy-konnector-libs` and `cheerio`.
 
 Known weaknesses
 ----------------

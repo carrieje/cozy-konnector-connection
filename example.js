@@ -12,7 +12,7 @@ function start (fields) {
   })
 }
 
-function validateLogin (statusCode, $, json) {
+function validateLogin (statusCode, rawBody) {
   console.log(statusCode)
   return false
 }
