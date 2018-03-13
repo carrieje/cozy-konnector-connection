@@ -7,8 +7,8 @@ module.exports.init = function (
   page,
   formSelector,
   population,
+  parseStrategy = 'cheerio',
   validate = defaultValidate,
-  parseStrategy = 'raw',
   opts = {}) {
 
   const defaultOpts = { jar: true, cheerio: true, json: false }

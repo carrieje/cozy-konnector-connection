@@ -23,5 +23,5 @@ function login (fields) {
     'USERID': fields.login,
     'STATIC': fields.password
   }
-  return connection.init(baseUrl, page, '#formSignon', population, validateLogin)
+  return connection.init(baseUrl, page, '#formSignon', population, 'raw', validateLogin)
 }

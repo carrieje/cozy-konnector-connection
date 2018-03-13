@@ -77,17 +77,17 @@ Custom processing
 
 `connection` allows some customizations.
 
-As a fifth argument to `init`, you can customize the validation function.
-This must be a function with 2 arguments : `statusCode`, `body`.
+As a fifth argument to `init`, you can define a strategy to parse the `body`.
+This parsed `body` would be passed as an argument when resolving the `init`
+promise, and also to the validation function.
+You have three options for this : `'raw'`, `'json'`, `'cheerio'`. `'cheerio'` is
+the default strategy.
+
+As a sixth argument to `init`, you can customize the validation function.
+This must be a function with 2 arguments : `statusCode`, `parsedBody`.
 You can use both arguments to determine whether login is successfull or not.
 This function is a predicate for the success of the login process. It must
 return a boolean.
-
-As a sixth argument to `init`, you can define a strategy to parse the `body`.
-This `body` would be parsed when passed to the validation function, and when
-resolving the last promise.
-You have three options for this : `'raw'`, `'json'`, `'cheerio'`. `'raw'` is the
-default strategy.
 
 ```js
 function validateLogin (statusCode, $) {
@@ -98,7 +98,7 @@ function validateLogin (statusCode, $) {
 
 function login (fields) {
   // ...
-  return connection.init(baseUrl, page, '#formSignon', population, validateLogin, 'cheerio')
+  return connection.init(baseUrl, page, '#formSignon', population, 'cheerio', validateLogin)
 }
 ```
 
