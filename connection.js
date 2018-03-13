@@ -7,7 +7,7 @@ module.exports.init = function (
   page,
   formSelector,
   population,
-  parseStrategy = 'raw',
+  parseStrategy = 'cheerio',
   validate = defaultValidate,
   opts = {}) {
 

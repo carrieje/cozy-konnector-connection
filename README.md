@@ -80,8 +80,8 @@ Custom processing
 As a fifth argument to `init`, you can define a strategy to parse the `body`.
 This parsed `body` would be passed as an argument when resolving the `init`
 promise, and also to the validation function.
-You have three options for this : `'raw'`, `'json'`, `'cheerio'`. `'raw'` is the
-default strategy.
+You have three options for this : `'raw'`, `'json'`, `'cheerio'`. `'cheerio'` is
+the default strategy.
 
 As a sixth argument to `init`, you can customize the validation function.
 This must be a function with 2 arguments : `statusCode`, `parsedBody`.
