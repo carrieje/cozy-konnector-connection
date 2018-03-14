@@ -16,6 +16,13 @@ Require `connection` module.
 const connection = require('./connection')
 ```
 
+Or if you want to use `yarn`:
+`yarn add carrieje/cozy-konnector-connection`
+
+```js
+const connection = require('cozy-konnector-connection/connection.js')
+```
+
 Define your Konnector with a `login` function.
 
 ```js
