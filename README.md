@@ -17,7 +17,10 @@ const connection = require('./connection')
 ```
 
 Or if you want to use `yarn`:
-`yarn add carrieje/cozy-konnector-connection`
+
+```sh
+$ yarn add carrieje/cozy-konnector-connection
+```
 
 ```js
 const connection = require('cozy-konnector-connection/connection.js')
