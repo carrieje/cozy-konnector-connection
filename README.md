@@ -5,7 +5,7 @@ Cozy Konnector Connection Module
 -------------
 
 As of 2017-03-27, this module is no longer maintained.
-It has been merged to (`cozy-konnector-libs`)[https://github.com/cozy/cozy-konnector-libs] in (its 3.8.0 version)[https://github.com/cozy/cozy-konnector-libs/blob/2c8fd33f883041398a0b690aa16d4d2de34ba701/packages/cozy-konnector-libs/CHANGELOG.md#380---2018-03-27].
+It has been merged to [`cozy-konnector-libs`](https://github.com/cozy/cozy-konnector-libs) in [its 3.8.0 version](https://github.com/cozy/cozy-konnector-libs/blob/2c8fd33f883041398a0b690aa16d4d2de34ba701/packages/cozy-konnector-libs/CHANGELOG.md#380---2018-03-27).
 
 What is it?
 -----------
